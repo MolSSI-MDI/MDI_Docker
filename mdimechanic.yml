@@ -1,0 +1,40 @@
+code_name: 'MDI Library'
+docker:
+  image_name: 'mdi/env'
+
+   build_image:
+    - apt-get update
+    - apt-get install -y git wget vim
+    - pip install cmake
+    - pip install pytest
+    - pip install mpi4py
+
+  build_engine:
+    # Build a copy of the MDI Library for testing purposes
+    - |
+      if [ ! -d "build/MDI_Library" ]; then
+        git clone https://github.com/MolSSI-MDI/MDI_Library.git build/MDI_Library
+      fi
+    - mkdir -p build/MDI_Library/build
+    - cd build/MDI_Library/build
+    - cmake -Dtest_codes=ON ..
+    - make
+
+
+  validate_engine:
+    - echo "Insert code that will confirm that your code has been built successfully"
+    - exit 1
+
+
+
+run_scripts:
+
+  pytest:
+    containers:
+      container1:
+        image: 'mdi/env'
+        script:
+          - export OMP_NUM_THREADS=1
+          - cd build/MDI_Library/tests
+          - pytest
+
