@@ -2,7 +2,7 @@ code_name: 'MDI Library'
 docker:
   image_name: 'mdi/env'
 
-   build_image:
+  build_image:
     - apt-get update
     - apt-get install -y git wget vim
     - pip install cmake
@@ -36,5 +36,5 @@ run_scripts:
         script:
           - export OMP_NUM_THREADS=1
           - cd build/MDI_Library/tests
-          - pytest
+          - pytest -vv
 
