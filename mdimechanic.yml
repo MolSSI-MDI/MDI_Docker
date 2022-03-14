@@ -6,6 +6,7 @@ docker:
     - apt-get update
     - apt-get install -y git wget vim
     - pip install cmake
+    - pip install numpy
     - pip install pytest
     - pip install mpi4py
 
